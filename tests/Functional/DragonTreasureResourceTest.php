@@ -20,7 +20,17 @@ class DragonTreasureResourceTest extends KernelTestCase {
 			->assertJson()
 			->assertJsonMatches('"hydra:totalItems"', 5)
 			->use(function(Json $json) {
-				dump($json->search('keys("hydra:member"[0])'));
+				$json->assertMatches('keys("hydra:member"[0])', [
+					'@id',
+					'@type',
+					'name',
+					'description',
+					'value',
+					'coolFactor',
+					'owner',
+					'shortDescription',
+					'plunderedAtAgo'
+				]);
 			})
 		;
 	}
