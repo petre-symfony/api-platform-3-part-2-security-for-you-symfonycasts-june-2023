@@ -14,7 +14,7 @@ class DragonTreasureResourceTest extends KernelTestCase {
 		$this->browser()
 			->get('/api/treasures')
 			->assertJson()
-			->assertJsonMatches('hydra:totalItems', 0)
+			->assertJsonMatches('"hydra:totalItems"', 0)
 		;
 	}
 }
