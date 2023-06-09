@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ApiTokenRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 #[ORM\Entity(repositoryClass: ApiTokenRepository::class)]
 class ApiToken {
@@ -83,5 +84,9 @@ class ApiToken {
 		$this->scopes = $scopes;
 
 		return $this;
+	}
+
+	public function isValid(): bool {
+		return $this->expiresAt === null || $this->expiresAt > new \DateTimeImmutable();
 	}
 }
