@@ -107,7 +107,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface {
 	 * @see UserInterface
 	 */
 	public function getRoles(): array {
-		$roles = $this->roles;
+		if (null === $this->accessTokenScopes) {
+			//logged in as a full normal user
+			$roles = $this->roles;
+			$roles[] = 'ROLE_FULL_USER';
+		} else {
+			$roles = $this->accessTokenScopes;
+		}
+
+
 		// guarantee every user at least has ROLE_USER
 		$roles[] = 'ROLE_USER';
 
