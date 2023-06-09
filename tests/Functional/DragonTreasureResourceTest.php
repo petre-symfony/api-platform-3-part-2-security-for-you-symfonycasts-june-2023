@@ -4,6 +4,7 @@ namespace Functional;
 
 use App\Factory\DragonTreasureFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Zenstruck\Browser\Json;
 use Zenstruck\Browser\Test\HasBrowser;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
@@ -17,8 +18,10 @@ class DragonTreasureResourceTest extends KernelTestCase {
 		$this->browser()
 			->get('/api/treasures')
 			->assertJson()
-			->dump()
 			->assertJsonMatches('"hydra:totalItems"', 5)
+			->use(function(Json $json) {
+				dump($json->search('"hydra:member"'));
+			})
 		;
 	}
 }
