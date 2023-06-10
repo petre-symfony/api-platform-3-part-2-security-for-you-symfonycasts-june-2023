@@ -116,5 +116,15 @@ class DragonTreasureResourceTest extends ApiTestCase {
 			])
 			->assertStatus(403)
 		;
+
+		$this->browser()
+			->actingAs($user)
+			->patch('/api/treasures/' . $treasure->getId(), [
+				'json' => [
+					'owner' => '/api/users/' . $user2->getId()
+				]
+			])
+			->assertStatus(403)
+		;
 	}
 }
