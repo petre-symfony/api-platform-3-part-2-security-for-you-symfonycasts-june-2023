@@ -69,7 +69,6 @@ class DragonTreasureResourceTest extends ApiTestCase {
 					'Authorization' => 'Bearer ' . $token->getToken()
 				]
 			])
-			->dump()
 			->assertStatus(422)
 		;
 	}
@@ -86,7 +85,6 @@ class DragonTreasureResourceTest extends ApiTestCase {
 					'Authorization' => 'Bearer ' . $token->getToken()
 				]
 			])
-			->dump()
 			->assertStatus(403)
 		;
 	}
