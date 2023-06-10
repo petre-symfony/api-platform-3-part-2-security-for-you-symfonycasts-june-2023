@@ -44,7 +44,18 @@ class DragonTreasureResourceTest extends KernelTestCase {
 				'json' => []
 			])
 			->assertStatus(422)
+			->post('/api/treasures', [
+				'json' => [
+					'name' => 'A shiny thing',
+					'description' => 'It sparkles when I have it in the air',
+					'value' => 1000,
+					'coolFactor' => 5,
+					'owner' => '/api/users/' . $user->getId()
+				]
+			])
+			->assertStatus(201)
 			->dump()
+			->assertJsonMatches('name', 'A shiny thing')
 		;
 	}
 }
