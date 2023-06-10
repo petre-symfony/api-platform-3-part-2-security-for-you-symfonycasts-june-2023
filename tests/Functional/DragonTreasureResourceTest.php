@@ -33,4 +33,14 @@ class DragonTreasureResourceTest extends KernelTestCase {
 			'plunderedAtAgo'
 		]);
 	}
+
+	public function testPostCreateTreasure(): void {
+		$this->browser()
+			->post('/api/treasures', [
+				'json' => []
+			])
+			->assertStatus(422)
+			->dump()
+		;
+	}
 }
