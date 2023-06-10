@@ -30,7 +30,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 		new Get(),
 		new GetCollection(),
 		new Post(
-			security: 'is_granted("PUBLIC_ACCESS")'
+			security: 'is_granted("PUBLIC_ACCESS")',
+
 		),
 		new Put(
 			security: 'is_granted("ROLE_USER_EDIT")'
