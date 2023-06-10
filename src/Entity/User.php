@@ -41,7 +41,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 	],
 	normalizationContext: ['groups' => ['user:read']],
 	denormalizationContext: ['groups' => ['user:write']],
-	security: 'is_granted("ROLE_USER")'
+	security: 'is_granted("ROLE_USER")',
+	extraProperties: [
+		'standard_put' => true
+	]
 )]
 #[ApiResource(
 	uriTemplate: '/treasures/{treasure_id}/owner.{_format}',
@@ -53,7 +56,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 		),
 	],
 	normalizationContext: ['groups' => ['user:read']],
-	security: 'is_granted("ROLE_USER")'
+	security: 'is_granted("ROLE_USER")',
+	extraProperties: [
+		'standard_put' => true
+	]
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
