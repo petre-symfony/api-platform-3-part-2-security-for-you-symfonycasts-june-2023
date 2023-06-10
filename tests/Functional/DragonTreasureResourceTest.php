@@ -88,4 +88,22 @@ class DragonTreasureResourceTest extends ApiTestCase {
 			->assertStatus(403)
 		;
 	}
+
+	public function testPatchToUpdateTreasure(): void{
+		$user = UserFactory::createOne();
+		$treasure = DragonTreasureFactory::createOne([
+			'owner' => $user
+		]);
+
+		$this->browser()
+			->actingAs($user)
+			->patch('/api/treasures/' . $treasure->getId(), [
+				'json' => [
+					'value' => 12345
+				]
+			])
+			->assertStatus(200)
+			->assertJsonMatches('value', 12345)
+		;
+	}
 }
