@@ -9,7 +9,6 @@ use Zenstruck\Browser\Test\HasBrowser;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
 class DragonTreasureResourceTest extends ApiTestCase {
-	use HasBrowser;
 	use ResetDatabase;
 
 	public function testGetCollectionOfTreasures(): void {
@@ -52,7 +51,6 @@ class DragonTreasureResourceTest extends ApiTestCase {
 
 			]))
 			->assertStatus(201)
-			->dump()
 			->assertJsonMatches('name', 'A shiny thing')
 		;
 	}
