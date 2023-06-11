@@ -2,19 +2,23 @@
 
 namespace App\Normalizer;
 
-use Symfony\Component\Serializer\Exception\CircularReferenceException;
-use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-use Symfony\Component\Serializer\Exception\LogicException;
+use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+#[AsDecorator('serializer')]
 class AddOwnerGroupsNormalizer implements NormalizerInterface {
-	public function normalize(mixed $object, string $format = null, array $context = []): array|\ArrayObject|bool|float|int|null|string {
-		// TODO: Implement normalize() method.
+	public function __construct(private NormalizerInterface $normalizer){
+
 	}
 
-	public function supportsNormalization(mixed $data, string $format = null): bool {
-		// TODO: Implement supportsNormalization() method.
+	public function normalize(mixed $object, string $format = null, array $context = []): array|\ArrayObject|bool|float|int|null|string {
+		dump('It works');
+
+		return $this->normalizer->normalize($object, $format, $context);
+	}
+
+	public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool {
+		return $this->normalizer->supportsNormalization($data, $format, $context);
 	}
 
 }
