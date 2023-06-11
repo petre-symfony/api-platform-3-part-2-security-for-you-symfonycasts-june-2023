@@ -147,7 +147,7 @@ class DragonTreasureResourceTest extends ApiTestCase {
 		;
 	}
 
-	public function testOwnerCanSeeItsPublishedField(): void {
+	public function testOwnerCanSeeItsPublishedAndIsMineFields(): void {
 		$user = UserFactory::createOne();
 		$treasure = DragonTreasureFactory::createOne([
 			'isPublished' => false,
@@ -164,6 +164,7 @@ class DragonTreasureResourceTest extends ApiTestCase {
 			->assertStatus(200)
 			->assertJsonMatches('value', 12345)
 			->assertJsonMatches('isPublished', false)
+			->assertJsonMatches('isMine', true)
 		;
 	}
 }
