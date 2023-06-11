@@ -3,10 +3,15 @@
 namespace App\Validator;
 
 use App\Entity\User;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class IsValidOwnerValidator extends ConstraintValidator {
+	public function __construct(private Security $security)
+	{
+	}
+
 	public function validate($value, Constraint $constraint) {
 		assert($constraint instanceof IsValidOwner);
 
@@ -16,7 +21,19 @@ class IsValidOwnerValidator extends ConstraintValidator {
 
 		assert($value instanceof User);
 
-		$this->context->buildViolation($constraint->message)
-			->addViolation();
+		$user = $this->security->getUser();
+
+		if (!$user) {
+			throw new \LogicException('IsOwnerValidator should only be used when a user is logged in.');
+		}
+
+		if ($this->security->isGranted('ROLE_ADMIN')) {
+			return;
+		}
+
+		if ($value !== $user) {
+			$this->context->buildViolation($constraint->message)
+				->addViolation();
+		}
 	}
 }
